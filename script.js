@@ -32,7 +32,7 @@ function preload() {
     foodImage = loadImage('https://cdn-icons-png.flaticon.com/512/10366/10366416.png');
     giftImage = loadImage('https://cdn-icons-png.flaticon.com/512/997/997499.png');
     cakeImage = loadImage('https://cdn-icons-png.flaticon.com/512/3631/3631167.png');
-    electronicImage = loadImage('https://cdn-icons-png.flaticon.com/512/3631/3631167.png');
+    electronicImage = loadImage('https://uc3533c4ecf4c920893ceadf551c.previews.dropboxusercontent.com/p/thumb/ACaQ4WHgkKbHo7HLQC-WYyxAsJdE0xjhxtODyC2J8ZemIpSdDpXEQ16nLzeHSpUnBhwGlPispP6emqpBDbFQEJ7I7K6af83QKAk8B8e_HZhrrJo4BDZxCvTnSP1_RqW4qYauMffWU6fQGb1N5Wprbh1K6EEs-LPq9FR825ZWX1ePH3DyAZajVLZbd7wgA4vLYONr-9R075KC_95wXz8aypr0q-bKS1uFO9GgXcHUvSOCJyuMZ7o5Qt_A3JZJIMgdi-ppm22aA8ClNn3qD-lIiF-FrqtRDdqcbHjPLgckyMzGq5zwxY3mLI9C-z31qbwY6NCRXOCqkgMMoRU9p945ilGS0Ca32S0c1x_5MIs242ZMheKEcjoh3pKVaOaH_XsuDgY/p.png?is_prewarmed=true');
 }
 
 function setup() {
