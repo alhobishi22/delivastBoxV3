@@ -1,0 +1,193 @@
+<!DOCTYPE html> 
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>رسوم متحركة لصندوق التوصيل</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* لمنع ظهور شريط التمرير */
+            background-color: transparent; /* جعل خلفية الصفحة شفافة */
+        }
+        #animation-section {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* ملء ارتفاع النافذة بالكامل */
+            background: transparent; /* ضمان شفافية القسم */
+        }
+        canvas {
+            display: block;
+            /* إزالة أي خلفية من الـcanvas لضمان الشفافية */
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- قسم الرسوم المتحركة -->
+    <div id="animation-section"></div>
+
+    <!-- تضمين مكتبة p5.js من CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+
+    <!-- كود p5.js الخاص بالرسوم المتحركة -->
+    <script>
+        let driverImage; // صورة السائق
+        let openBoxImage; // صورة الصندوق المفتوح
+        let closedBoxImage; // صورة الصندوق المغلق
+        let foodImage, giftImage, cakeImage, electronicImage; // صور محتويات الصندوق
+        let driverX = 0; // موقع السائق الأفقي
+        let roadLineOffset = 0; // إزاحة خطوط الطريق
+        let boxOpened = false; // حالة الصندوق (مغلق أو مفتوح)
+        let gifts = []; // قائمة الهدايا والأطعمة
+        let isStopped = false; // حالة الدراجة (متحركة أو متوقفة)
+        let availableGifts = []; // مصفوفة تحتوي على جميع المنتجات المتاحة
+
+        function preload() {
+            // تحميل الصور المرفقة
+            driverImage = loadImage(
+                'https://uc1e14c63aeb567eadda4181ba8a.previews.dropboxusercontent.com/p/thumb/ACaAmK0ai2tmT3cbA3s_heZICQC-NPKxajUNuoOq8P6EcUsxdysDkNpfYaDiRZ71GDJQ4gRBNZieA5E1Nl47C2n-MJuf_37PMlxncA7lHMwIQu96b7n44YybuoCEONtki6wheT-DX3wy2MMcI7gttfrKqEkubVL3O33nUiPhgZfEeTUWEdd_4poKzJgQn3iwZwg2c--mZFQ41kHfNzyluErWZtvA_6HNlp2JxeVjAPeJMz6FwiosTpb991ro63gg9vjKIpHzky_EK2fXy0QvvWJfCpt_1ucUIGc_UkeBtwkpHXmp15DfNkl_kz2YJpu_kmOf5jk43Faa_d0_bhlQCAOhHoH7qtFkUwn4fdF_jbBz37MpUPJJ2Q8CGCht0sbxHS8/p.png?is_prewarmed=true', 
+                () => {
+                    console.log('تم تحميل صورة السائق بنجاح');
+                },
+                () => {
+                    console.error('خطأ: لم يتم العثور على صورة السائق! تحقق من المسار.');
+                }
+            );
+            openBoxImage = loadImage(
+                'https://uc9741bd9b4a55ff6545ba1ee2fe.previews.dropboxusercontent.com/p/thumb/ACZfzhwJNFJKVE87rxHbso9WtKRAFuPyY2GQuRPrJDCPexmb3wV0JrSXuURcuuw97QXVxErWMu5OswIpFksjz8tem8HRazhrHaenDosaeTUyx01lFHlUxPeA6asA6OIwjBHvwRQO31xvUSmjhodUWkA7locu5QsnYnRmN3PCcx3FkqO-unkwNq2z_dlkQVeQ8GmHNwwALfyBhg5gULLzdTdlMI8N5svCVPw3v5-PePsQnORy0swQtg_uaT6-W-YSle2W55X5AoHcA7f3Tveiw-uwlxqrqjKMr7vOCWHm3kxuN2KK8dQtcyXDzyeTS8MHt58sPSxve_w5huUpm8aARATDSPBRKsogQTSIehjeB4lb9QhEllAFgktkNYXqaPFDduw/p.png?is_prewarmed=true',
+                () => {
+                    console.log('تم تحميل صورة الصندوق المفتوح بنجاح');
+                },
+                () => {
+                    console.error('خطأ: لم يتم العثور على صورة الصندوق المفتوح! تحقق من المسار.');
+                }
+            );
+            closedBoxImage = loadImage(
+                'https://uc1e14c63aeb567eadda4181ba8a.previews.dropboxusercontent.com/p/thumb/ACaAmK0ai2tmT3cbA3s_heZICQC-NPKxajUNuoOq8P6EcUsxdysDkNpfYaDiRZ71GDJQ4gRBNZieA5E1Nl47C2n-MJuf_37PMlxncA7lHMwIQu96b7n44YybuoCEONtki6wheT-DX3wy2MMcI7gttfrKqEkubVL3O33nUiPhgZfEeTUWEdd_4poKzJgQn3iwZwg2c--mZFQ41kHfNzyluErWZtvA_6HNlp2JxeVjAPeJMz6FwiosTpb991ro63gg9vjKIpHzky_EK2fXy0QvvWJfCpt_1ucUIGc_UkeBtwkpHXmp15DfNkl_kz2YJpu_kmOf5jk43Faa_d0_bhlQCAOhHoH7qtFkUwn4fdF_jbBz37MpUPJJ2Q8CGCht0sbxHS8/p.png?is_prewarmed=true', 
+            );
+            foodImage = loadImage('https://cdn-icons-png.flaticon.com/512/10366/10366416.png');
+            giftImage = loadImage('https://cdn-icons-png.flaticon.com/512/997/997499.png');
+            cakeImage = loadImage('https://cdn-icons-png.flaticon.com/512/3631/3631167.png');
+            electronicImage = loadImage('https://cdn-icons-png.flaticon.com/512/4330/4330943.png'); // رابط جديد لصورة الإلكترونيات
+
+            // إضافة جميع الصور إلى مصفوفة المنتجات المتاحة
+            availableGifts = [
+                { img: foodImage, name: 'طعام' },
+                { img: giftImage, name: 'هدية' },
+                { img: cakeImage, name: 'كعكة' },
+                { img: electronicImage, name: 'إلكترونيات' }
+            ];
+        }
+
+        function setup() {
+            // تحديد مكان رسم الرسوم المتحركة داخل الصفحة
+            let canvas = createCanvas(2600, 600);
+            canvas.parent('animation-section'); // ربط اللوحة بالقسم المحدد
+            // جعل خلفية الـcanvas شفافة
+            clear();
+        }
+
+        function draw() {
+            // عدم رسم خلفية كاملة للحفاظ على الشفافية
+            // إذا كنت ترغب في رسم السماء مع شفافية جزئية، استخدم:
+            // background(135, 206, 235, 100); // سماء شفافة جزئياً
+            // أو لا ترسم الخلفية على الإطلاق إذا كنت تريد شفافية كاملة
+
+            // إذا كنت ترغب في رسم السماء مع شفافية جزئية، استخدم التالي:
+            noStroke();
+            fill(135, 206, 235, 100); // سماء بلون أزرق فاتح شفاف
+            rect(0, 0, width, height); // رسم مستطيل يغطي كامل الـcanvas بشفافية
+
+            drawRoad();
+            drawDeliveryDriver(driverX, 350);
+
+            if (boxOpened) {
+                drawGifts(); // رسم الهدايا والأطعمة إذا كان الصندوق مفتوحاً
+            }
+
+            // تحريك السائق والطريق إذا لم يكن متوقفًا
+            if (!isStopped) {
+                driverX += 3; // زيادة الموقع الأفقي لجعل السائق يتحرك
+                if (driverX > width) { // إذا خرج السائق من الشاشة يعود من الطرف الآخر
+                    driverX = -driverImage.width * 0.5;
+                }
+
+                // تحريك خطوط الطريق
+                roadLineOffset -= 5;
+                if (roadLineOffset < -40) {
+                    roadLineOffset = 0;
+                }
+            }
+        }
+
+        // رسم الطريق
+        function drawRoad() {
+            fill(169, 169, 169, 200); // لون الطريق مع شفافية جزئية
+            noStroke();
+            rect(0, 450, width, 150);
+
+            // خطوط الطريق البيضاء
+            stroke(255, 255, 255, 200);
+            strokeWeight(4);
+            for (let i = roadLineOffset; i < width; i += 40) {
+                line(i, 525, i + 20, 525);
+            }
+        }
+
+        // رسم سائق التوصيل
+        function drawDeliveryDriver(x, y) {
+            if (boxOpened && openBoxImage) {
+                image(openBoxImage, x, y, closedBoxImage.width * 0.5, closedBoxImage.height * 0.5); // رسم الصورة مع الصندوق المفتوح
+            } else {
+                image(closedBoxImage, x, y, closedBoxImage.width * 0.5, closedBoxImage.height * 0.5); // رسم الصندوق المغلق
+            }
+        }
+
+        // رسم الهدايا
+        function drawGifts() {
+            for (let i = 0; i < gifts.length; i++) {
+                let gift = gifts[i];
+                image(gift.img, gift.x, gift.y, gift.size, gift.size); // رسم الهدايا باستخدام الصور
+                if (gift.y > 100) { // الصعود إلى الأعلى بشكل تدريجي بزاوية 120 درجة
+                    gift.x += Math.cos(radians(120)) * 2;
+                    gift.y -= Math.sin(radians(120)) * 2;
+                } else {
+                    gift.y = 100; // تثبيت الهدايا في موضع معين في السماء
+                }
+            }
+        }
+
+        // التعامل مع حدث النقر بالماوس
+        function mousePressed() {
+            // تحقق مما إذا كان النقر داخل منطقة الصندوق
+            if (
+                mouseX > driverX &&
+                mouseX < driverX + (boxOpened ? openBoxImage.width : closedBoxImage.width) * 0.5 &&
+                mouseY > 350 &&
+                mouseY < 350 + (boxOpened ? openBoxImage.height : closedBoxImage.height) * 0.5
+            ) {
+                isStopped = !isStopped; // تبديل حالة الدراجة بين التوقف والحركة
+
+                if (isStopped) {
+                    boxOpened = true; // فتح الصندوق عند التوقف
+
+                    // اختيار منتج عشوائي من المصفوفة المتاحة
+                    let randomGift = random(availableGifts);
+                    gifts.push({
+                        x: driverX + (closedBoxImage.width * 0.5) / 2 - 25, // مركز الصندوق أفقيًا مع تعديل ليتناسب مع حجم الهدايا
+                        y: 350, // موضع بداية الهدايا عند فتح الصندوق
+                        size: 50,
+                        img: randomGift.img,
+                        name: randomGift.name
+                    });
+                } else {
+                    boxOpened = false; // إغلاق الصندوق عند الحركة
+                    // يمكنك إفراغ الهدايا إذا رغبت في ذلك
+                    // gifts = [];
+                }
+            }
+        }
+    </script>
+</body>
+</html>

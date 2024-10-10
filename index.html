@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeliFast - خدمة توصيل سريعة وآمنة</title>
+    <!-- رابط ملف CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- مكتبة Font Awesome لأيقونات آراء العملاء -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- مكتبة p5.js للرسوم المتحركة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" defer></script>
+    <!-- ملف JavaScript الخاص بالرسوم المتحركة -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <!-- الجزء العلوي (Header) -->
+    <header>
+        <div class="logo">
+            <img src="https://scontent-fra3-2.xx.fbcdn.net/v/t39.30808-1/354039017_104470296019756_3734884646191090582_n.jpg?stp=c12.0.850.850a_dst-jpg_s200x200&_nc_cat=111&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=0smYGyiKyTQQ7kNvgGa7cPG&_nc_ht=scontent-fra3-2.xx&_nc_gid=AtF9hET-KWTj9vjCJUTzGIg&oh=00_AYA3rxPrS6mdzugKhWmVFbWd9UyE7svb7hCeJLXonUa2aw&oe=6708AEEB" alt="Logo" class="circular-logo">
+            DeliFast
+        </div>
+
+        <!-- زر تغيير اللغة -->
+        <div class="language-switcher">
+            <button class="language-button">
+                <img src="https://flagcdn.com/sa.svg" alt="Saudi Flag" class="flag-icon">
+                <span class="language-text" data-translate-key="languageButton">العربية</span>
+                <span class="dropdown-icon">&#9662;</span>
+            </button>
+            <ul class="language-dropdown">
+                <li><a href="?lang=ar"><img src="https://flagcdn.com/sa.svg" alt="Saudi Flag" class="flag-icon"> العربية</a></li>
+                <li><a href="?lang=en"><img src="https://flagcdn.com/us.svg" alt="US Flag" class="flag-icon"> English</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- القسم الرئيسي (Hero Section) -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-translate-key="heroTitle">خدمة توصيل سريعة وآمنة لجميع احتياجاتك من الطعام والهدايا والإلكترونيات</h1>
+            <p data-translate-key="heroDescription">اطلب الآن واستمتع بخيارات الدفع المرنة وخدمة توصيل تناسب احتياجاتك</p>
+            <div class="app-buttons">
+                <a href="https://play.google.com/store/apps/details?id=YOUR_APP_ID" target="_blank">
+                    <img src="https://hungerstation.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fplay-store-en-black.1e984ce7.png&w=384&q=75" alt="حمل التطبيق من Google Play">
+                </a>
+                <a href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank">
+                    <img src="https://hungerstation.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp-store-en-white.8ed40d65.png&w=384&q=75" alt="حمل التطبيق من Apple Store">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المزايا (Key Features) -->
+    <section class="features">
+        <div class="feature">
+            <img src="https://cdn-icons-png.flaticon.com/512/5952/5952766.png" alt="توصيل سريع">
+            <h3 data-translate-key="feature1">توصيل سريع</h3>
+            <p data-translate-key="feature1Desc">نوصل طلباتك في الوقت المناسب، أينما كنت</p>
+        </div>
+        <div class="feature">
+            <img src="https://cdn-icons-png.freepik.com/512/1019/1019611.png" alt="خيارات دفع متعددة">
+            <h3 data-translate-key="feature2">خيارات دفع متعددة</h3>
+            <p data-translate-key="feature2Desc">اختر طريقة الدفع التي تناسبك: تحويل بنكي، Visa، Mastercard، أو PayPal</p>
+        </div>
+        <div class="feature">
+            <img src="https://cdn-icons-png.flaticon.com/512/9198/9198394.png" alt="تشكيلة واسعة من المنتجات">
+            <h3 data-translate-key="feature3">تشكيلة واسعة من المنتجات</h3>
+            <p data-translate-key="feature3Desc">الطعام، الهدايا، والأدوات الإلكترونية – كل شيء في مكان واحد</p>
+        </div>
+        <div class="feature">
+            <img src="https://cdn-icons-png.flaticon.com/512/2278/2278984.png" alt="تطبيق متاح لكل الأجهزة">
+            <h3 data-translate-key="feature4">تطبيق متاح لكل الأجهزة</h3>
+            <p data-translate-key="feature4Desc">حمل التطبيق من Google Play و Apple Store واستمتع بتجربة أفضل</p>
+        </div>
+    </section>
+
+    <!-- قسم عرض الفئات (Product Categories) -->
+    <section class="categories" id="products">
+        <div class="category">
+            <img src="https://cdn-icons-png.flaticon.com/512/10366/10366416.png" alt="الطعام">
+            <h3 data-translate-key="category1">الطعام</h3>
+        </div>
+        <div class="category">
+            <img src="https://cdn-icons-png.flaticon.com/512/997/997499.png" alt="الهدايا">
+            <h3 data-translate-key="category2">الهدايا</h3>
+        </div>
+        <div class="category">
+            <img src="https://cdn-icons-png.flaticon.com/512/3631/3631167.png" alt="الأدوات الإلكترونية">
+            <h3 data-translate-key="category3">الأدوات الإلكترونية</h3>
+        </div>
+    </section>
+
+    <!-- قسم التسجيل (Registration Section) -->
+    <section class="registration">
+        <div class="registration-option">
+            <div class="icon">
+                <img src="https://cdn-icons-png.flaticon.com/256/7643/7643740.png" alt="Store Icon">
+            </div>
+            <div class="content">
+                <h3 data-translate-key="registerRestaurant">سجل مطعمك أو متجرك</h3>
+                <p data-translate-key="registerRestaurantDesc">وسع نطاق عملك من خلال الوصول إلى المزيد من العملاء معنا!</p>
+                <a href="https://example.com/register-store" class="cta-button" target="_blank" data-translate-key="registerNow">سجل الآن</a>
+            </div>
+        </div>
+        <div class="registration-option">
+            <div class="icon">
+                <img src="https://cdn-icons-png.freepik.com/256/7910/7910028.png?semt=ais_hybrid" alt="Rider Icon">
+            </div>
+            <div class="content">
+                <h3 data-translate-key="registerRider">سجل كسائق</h3>
+                <p data-translate-key="registerRiderDesc">انضم إلينا كسائق واكسب دخل إضافي. سجل الآن!</p>
+                <a href="https://example.com/register-rider" class="cta-button" target="_blank" data-translate-key="registerNow">سجل الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم آراء العملاء (Customer Reviews) -->
+    <section class="reviews-section" style="width: 99%;">
+        <h2>آراء العملاء</h2>
+        <button class="carousel-btn prev" onclick="scrollCarousel(-300)"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn next" onclick="scrollCarousel(300)"><i class="fas fa-chevron-right"></i></button>
+        <div class="review-carousel" id="carousel">
+            <div class="review-card">
+                <div class="review-author">
+                    <img src="https://via.placeholder.com/50" alt="Customer">
+                    <div>
+                        <div class="review-author-name">جون دو</div>
+                        <small>خدمة رائعة!</small>
+                    </div>
+                </div>
+                <p>"تم التوصيل في الوقت المحدد وكانت خدمة العملاء ممتازة! أوصي بشدة."</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-author">
+                    <img src="https://via.placeholder.com/50" alt="Customer">
+                    <div>
+                        <div class="review-author-name">جين سميث</div>
+                        <small>تطبيق ممتاز!</small>
+                    </div>
+                </div>
+                <p>"سهل الاستخدام ومريح للغاية. جعل تجربتي أسهل بكثير."</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-author">
+                    <img src="https://via.placeholder.com/50" alt="Customer">
+                    <div>
+                        <div class="review-author-name">مايكل براون</div>
+                        <small>راضٍ للغاية!</small>
+                    </div>
+                </div>
+                <p>"جعل التطبيق كل شيء بسيطًا للغاية. تجربة رائعة بشكل عام!"</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-author">
+                    <img src="https://via.placeholder.com/50" alt="Customer">
+                    <div>
+                        <div class="review-author-name">إميلي جونسون</div>
+                        <small>سريعة وموثوقة!</small>
+                    </div>
+                </div>
+                <p>"توصيل سريع وخدمة ممتازة. بالتأكيد سأستخدمها مرة أخرى."</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-author">
+                    <img src="https://via.placeholder.com/50" alt="Customer">
+                    <div>
+                        <div class="review-author-name">كريس ويلسون</div>
+                        <small>مريح جدًا!</small>
+                    </div>
+                </div>
+                <p>"كانت العملية سلسة وسهلة الاستخدام للغاية. تطبيق رائع!"</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-author">
+                    <img src="https://via.placeholder.com/50" alt="Customer">
+                    <div>
+                        <div class="review-author-name">سارة لي</div>
+                        <small>تجربة رائعة!</small>
+                    </div>
+                </div>
+                <p>"كان التطبيق سهل الاستخدام، ودعم العملاء كان مفيدًا جدًا. أوصي به بشدة!"</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <!-- يمكنك إضافة المزيد من بطاقات الآراء هنا -->
+        </div>
+    </section>
+
+    <!-- قسم الرسوم المتحركة -->
+    <section class="animation-section" id="animation-section">
+        <!-- سيكون الرسم المتحرك هنا -->
+    </section>
+
+    <!-- قسم تحميل التطبيق (App Download Section) -->
+    <section class="download" id="download">
+        <h2 data-translate-key="appHeading">حمل تطبيقنا واستمتع بتجربة مخصصة وسهلة على جهازك</h2>
+        <div class="app-buttons">
+            <a href="https://play.google.com/store/apps/details?id=YOUR_APP_ID" target="_blank">
+                <img src="https://hungerstation.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fplay-store-en-black.1e984ce7.png&w=384&q=75" alt="حمل التطبيق من Google Play">
+            </a>
+            <a href="https://apps.apple.com/app/idYOUR_APP_ID" target="_blank">
+                <img src="https://hungerstation.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp-store-en-white.8ed40d65.png&w=384&q=75" alt="حمل التطبيق من Apple Store">
+            </a>
+        </div>
+    </section>
+
+    <!-- قسم المعلومات السفلية (Footer) -->
+    <footer>
+        <div class="footer-links">
+            <a href="#about" data-translate-key="footerAbout">من نحن</a>
+            <a href="#privacy" data-translate-key="footerPrivacy">سياسة الخصوصية</a>
+            <a href="#terms" data-translate-key="footerTerms">الشروط والأحكام</a>
+            <a href="#faq" data-translate-key="footerFAQ">الأسئلة الشائعة</a>
+        </div>
+        <div class="social-icons">
+            <a href="#facebook"><img src="https://cdn-icons-png.freepik.com/256/15707/15707770.png?semt=ais_hybrid" alt="Facebook"></a>
+            <a href="#instagram"><img src="https://cdn.icon-icons.com/icons2/3781/PNG/512/instagram_icon_231990.png" alt="Instagram"></a>
+            <a href="#twitter"><img src="https://cdn-icons-png.freepik.com/256/11376/11376491.png?semt=ais_hybrid" alt="Twitter"></a>
+        </div>
+        <p>&copy; DELIFAST LTD 2024 جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <!-- سكربت للتحكم في Carousel آراء العملاء -->
+    <script>
+        function scrollCarousel(offset) {
+            const carousel = document.getElementById('carousel');
+            carousel.scrollBy({ left: offset, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
